@@ -6,5 +6,4 @@
 >
 > node_modules, functions (노드 의존성과 google function 관련 폴더, .gitignore로 무시됨)
 >
-> simplescraper : node.js로 구현된 스크레이퍼. google function 상에서 작동하며 realtime database에 데이터 수집. 현재는 콜백 오류로 작동 정지.
-
+> simplescraper.js : node.js로 구현된 스크레이퍼. google function 상에서 작동하며 realtime database에 데이터 수집. 현재는 콜백 오류로 작동 정지.
