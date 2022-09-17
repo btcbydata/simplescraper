@@ -48,6 +48,7 @@ df.drop(vote, inplace=True)
 df.drop(notice, inplace=True) # 광고, 설문, 공지 제거
 df = df.sort_values('num') # 글번호 기준 정열
 df.reset_index(inplace=False) # dataframe 초기화
+out = df.to_dict()
 df.to_json("{0}.json".format(filename), orient = 'records',  force_ascii=False) #json 파일 저장
 
 
