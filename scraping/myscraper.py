@@ -16,13 +16,12 @@ date = []
 filename='crawled_data'
 crawled_url='https://gall.dcinside.com/board/lists/?id=bitcoins_new1'
 
-for i in range(1,5000): ## 시작,종료 페이지 설정
+for i in range(1,20): ## 시작,종료 페이지 설정
+	URL = "{0}&page={1}".format(crawled_url, i) #페이지 스크롤
+	res = requests.get(URL,headers=headers)
+	bs = BeautifulSoup(res.content,'html.parser')
+	contents = bs.find('tbody').find_all('tr')
 	for j in contents:
-			URL = "{0}&page={1}".format(crawled_url, i) #페이지 스크롤
-
-			res = requests.get(URL,headers=headers)
-			bs = BeautifulSoup(res.read(),'lxml')
-			contents = bs.find('tbody').find_all('tr')
 
 			gallnum = j.find('td', class_='gall_num')
 			num.append(gallnum.text) #글번호
@@ -38,7 +37,7 @@ for i in range(1,5000): ## 시작,종료 페이지 설정
 					date.append("NULL") #공지등 예외처리
 
 
-			print(i," page scraped")
+	print(i,"page scraped")
 
 df = pandas.DataFrame({"num":num, "title":title, "date":date})
 ad = df[df['num'].str.contains('AD')].index
