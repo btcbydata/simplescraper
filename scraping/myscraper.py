@@ -13,10 +13,10 @@ num = []
 title = []
 date = []
 
-filename='crawled_data'
+filename='202210'
 crawled_url='https://gall.dcinside.com/board/lists/?id=bitcoins_new1'
 
-for i in range(1,20): ## 시작,종료 페이지 설정
+for i in range(1,924): ## 시작,종료 페이지 설정
 	URL = "{0}&page={1}".format(crawled_url, i) #페이지 스크롤
 	res = requests.get(URL,headers=headers)
 	bs = BeautifulSoup(res.content,'html.parser')
@@ -27,6 +27,7 @@ for i in range(1,20): ## 시작,종료 페이지 설정
 			num.append(gallnum.text) #글번호
 			galltitle = j.find('a')
 			title.append(galltitle.text) #글제목
+
 			galldate = j.find('td', class_='gall_date')
 			try :
 				date.append(galldate['title']) #날짜
@@ -35,6 +36,7 @@ for i in range(1,20): ## 시작,종료 페이지 설정
 					date.append(galldate.text)
 				except :
 					date.append("NULL") #공지등 예외처리
+
 
 
 	print(i,"page scraped")
@@ -49,6 +51,7 @@ df.drop(notice, inplace=True) # 광고, 설문, 공지 제거
 df = df.sort_values('num') # 글번호 기준 정열
 df.reset_index(inplace=False) # dataframe 초기화
 out = df.to_dict()
-df.to_json("{0}.json".format(filename), orient = 'records',  force_ascii=False) #json 파일 저장
+#df.to_json("{0}.json".format(filename), orient = 'records',  force_ascii=False) #json 파일 저장
+#df.to_csv("{0}.csv".format(filename), mode='w',encoding='utf-8-sig') #csv 파일 저장
 
 
